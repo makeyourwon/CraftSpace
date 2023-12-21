@@ -2,7 +2,7 @@
 I want to build a website to share craft images or skills.
 
 # Basic structure of Website
---image here--
+![ex](/Wirefram.jpg)
 
 # MVP Goals
 
@@ -19,5 +19,5 @@ I want to build a website to share craft images or skills.
 https://trello.com/b/2Y0xbNRU/unit-project-2
 
 # ERD
---image here---
+![ex](./ERD.jpeg)
 
