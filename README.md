@@ -2,7 +2,7 @@
 I want to build a website to share craft images or skills.
 
 # Basic structure of Website
-![ex](/Wirefram.jpg)
+![ex](./Wireframe.jpg)
 
 # MVP Goals
 
