@@ -21,3 +21,18 @@ https://trello.com/b/2Y0xbNRU/unit-project-2
 # ERD
 ![ex](./ERD.jpeg)
 
+# Route table
+
+./
+GET
+
+./POST + ./POST/:ID
+GET, UPDATE, PUT, DELETE
+
+./PROFILE
+GET, UPDATE,PUT,DELET
+
+Stretchy goal
+./POST/TODOLIST 
+GET, UPDATE, PUT, DELET
+
