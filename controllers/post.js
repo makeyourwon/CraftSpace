@@ -11,6 +11,15 @@ const getPost = () =>{
     })
 }
 
+const getLates5Post = () => {
+    return Post.find({}).sort({_id:-1}).limit(5)
+    .then(response => {
+        return response
+    })
+    .catch(error => {
+        throw error
+    })
+}
 const createPost =  (post) => {
     return Post.insertMany(post)
     .then(response => {
@@ -32,6 +41,16 @@ const updatePost = (id, updateinfo) => {
     })
 }
 
+const getPostById = (id) => {
+    return Post.findById(id)
+    .then(response => {
+        return response
+    })
+    .catch(error => {
+        throw error
+    })
+}
+
 const deletePost = (id) => {
     return Post.findByIdAndDelete(id)
     .then(response => {
@@ -44,6 +63,8 @@ const deletePost = (id) => {
 
 export {
     getPost,
+    getPostById,
+    getLates5Post,
     updatePost,
     createPost,
     deletePost

@@ -1,6 +1,7 @@
+
 import Comment from "../model/comment.js";
 
-const getComment =  () =>{
+const getComment = () =>{
     return Comment.find({})
     .then(response => {
         return response
@@ -10,8 +11,18 @@ const getComment =  () =>{
     })
 }
 
+const getCommentById = (id) =>{
+    return Comment.findById(id)
+    .then(response => {
+        return response
+    })
+    .catch(error => {
+        throw error
+    })
+}
+
 const createComment =  (comment) => {
-    return Comment.insertOne(comment)
+    return Comment.insertMany(comment)
     .then(response => {
         return response
     })
@@ -19,4 +30,32 @@ const createComment =  (comment) => {
         throw error
     })
     
+}
+
+const updateComment = (id, updateinfo) => {
+    return Comment.findByIdAndUpdate(id, updateinfo, {new:true})
+    .then(response => {
+        return response
+    })
+    .catch(error => {
+        throw error
+    })
+}
+
+const deleteComment = (id) => {
+    return Comment.findByIdAndDelete(id)
+    .then(response => {
+        return response
+    })
+    .catch(error =>{
+        throw error
+    })
+}
+
+export {
+    getComment,
+    updateComment,
+    createComment,
+    deleteComment,
+    getCommentById
 }

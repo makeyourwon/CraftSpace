@@ -1,12 +1,16 @@
 import mongoose from 'mongoose'
+import Post from './post.js'
 
 const commentSchema = mongoose.Schema({
     comment: {type: String, required: true},
-    postId: {type: mongoose.Schema.Types.ObjectId, ref:'Post'},
-    // userId: {type: mongoose.Schema.Types.ObjectId, ref:'User'}
+    // postId: {type: mongoose.Schema.Types.ObjectId, ref:'Post'},
 
+
+
+}, {
+  timestamps: true
 })
 
-const Comment = mongoose.model('comment', commentSchema)
+const Comment = mongoose.model('Comment', commentSchema)
 
 export default Comment

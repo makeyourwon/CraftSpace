@@ -1,12 +1,41 @@
 import express from 'express' 
 const router = express.Router() 
 import {getUser, createUser , updateUser, deleteUser} from '../controllers/user.js'
+import User from '../model/user.js'
+import { getUserInfo } from '../controllers/auth.js'
 
 
 router.get('/', function(req, res) {
     res.json({
         message: `HOME`
     })
+})
+
+router.get('/signin', (req, res) => {
+    res.json({
+        message:"please enter your infor to log in."
+    })
+})
+
+router.post('/signin', async (req, res) => {
+    let isloggedIn = false
+    const inputInfo = req.body
+    // const userOne = await User.findOne({username: req.body.username})
+    const userGot = await getUserInfo(req)
+    try{
+
+        if (inputInfo.username === userGot.username && inputInfo.pswd === userGot.pswd){
+            res.status(200).send({
+                message:"logged in sucessfully"
+            })
+            isloggedIn = true
+        }
+    }catch(error){
+        res.status(400).send({
+            error: `${error}`
+        })
+    }
+
 })
 
 router.get('/user', async (req,res) => {
@@ -24,8 +53,8 @@ router.get('/user', async (req,res) => {
 
 router.post('/user', async (req, res) => {
     try{
-        const userinfo = req.body
-        const newUser = await createUser(userinfo)
+        const userInfo = req.body
+        const newUser = await createUser(userInfo)
 
         res.status(200).json({
             message:'New user is created.',

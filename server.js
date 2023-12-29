@@ -1,6 +1,10 @@
 import express from 'express'
 import cors from 'cors'
-import allRouter from './route/user.js'
+import userRouter from './route/user.js'
+import postRouter from './route/post.js'
+import commentRouter from './route/comment.js'
+import todoRouter from './route/todos.js'
+
 import 'dotenv/config.js'
 // TODO: Import database
 import './config/database.js'
@@ -13,7 +17,10 @@ app.use(express.json())
 app.use(cors())
 
 
-app.use('/', allRouter)
+app.use('/', userRouter)
+app.use('/', postRouter)
+app.use('/', commentRouter)
+app.use('/', todoRouter)
 
 
 app.listen(PORT, function(){
