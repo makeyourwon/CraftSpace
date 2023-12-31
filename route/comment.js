@@ -1,11 +1,11 @@
 import express from 'express' 
-const router = express.Router() 
 import {getComment,
     updateComment,
     createComment,
     deleteComment,
     getCommentById} from '../controllers/comment.js'
-
+import { isloggedIn } from '../controllers/auth.js'
+const router = express.Router() 
 
 router.get('/post/comment', function(req, res) {
     res.json({

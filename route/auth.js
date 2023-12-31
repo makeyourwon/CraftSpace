@@ -10,10 +10,7 @@ const {SECRET ='secret'} = process.env
 const router = Router()
 router.post('/signup', async (req, res) => {
     try{
-        console.log(req.body.pswd)
         const newUser = await signUp(req)
-        console.log(req.body.pswd)
-        console.log(newUser)
         res.status(200).json({
             newUser: newUser
         })
@@ -27,7 +24,6 @@ router.post('/signup', async (req, res) => {
 
 router.post('/login', async (req,res) => {
     try{
-        console.log(req.body.username)
         const userInput = await signIn(req)
         if (userInput){
             const result = await bcrypt.compare(req.body.pswd, userInput.pswd)

@@ -1,9 +1,10 @@
 import express from 'express' 
 const router = express.Router() 
 import {getPost, getLates5Post, createPost , updatePost, deletePost, getPostById} from '../controllers/post.js'
+import { isloggedIn } from '../controllers/auth.js'
 
 //landing page with only 5 post.
-router.get('/post', async function(req, res) {
+router.get('/post', isloggedIn, async function(req, res) {
     try{
         const postList = await getLates5Post()
         res.status(200).send({postList})

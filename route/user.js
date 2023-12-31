@@ -3,6 +3,7 @@ const router = express.Router()
 import {getUser, createUser , updateUser, deleteUser} from '../controllers/user.js'
 import User from '../model/user.js'
 import { getUserInfo } from '../controllers/auth.js'
+import { isloggedIn } from '../controllers/auth.js'
 
 
 router.get('/', function(req, res) {
@@ -38,7 +39,7 @@ router.post('/signin', async (req, res) => {
 
 })
 
-router.get('/user', async (req,res) => {
+router.get('/user', isloggedIn, async (req,res) => {
     try{
         const userList = await getUser()
         res.status(200).send({userList})
