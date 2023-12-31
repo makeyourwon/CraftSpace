@@ -5,19 +5,15 @@ import User from '../model/user.js'
 import { getUserInfo } from '../controllers/auth.js'
 import { isloggedIn } from '../controllers/auth.js'
 
-
+//test route
 router.get('/', function(req, res) {
     res.json({
         message: `HOME`
     })
 })
 
-// router.get('/signin', (req, res) => {
-//     res.json({
-//         message:"please enter your infor to log in."
-//     })
-// })
 
+//rest route
 router.post('/signin', async (req, res) => {
     let isloggedIn = false
     const inputInfo = req.body
@@ -39,6 +35,8 @@ router.post('/signin', async (req, res) => {
 
 })
 
+
+//Routes below need login info.
 router.get('/user', isloggedIn, async (req,res) => {
     try{
         const userList = await getUser()
@@ -52,7 +50,7 @@ router.get('/user', isloggedIn, async (req,res) => {
 })
 
 
-router.post('/user', async (req, res) => {
+router.post('/user', isloggedIn, async (req, res) => {
     try{
         const userInfo = req.body
         const newUser = await createUser(userInfo)
@@ -72,7 +70,7 @@ router.post('/user', async (req, res) => {
 
 )
 
-router.put('/user/:id', async (req, res) => {
+router.put('/user/:id', isloggedIn, async (req, res) => {
     const id = req.params.id
     const userToUpdate = req.body
     try{
@@ -87,7 +85,7 @@ router.put('/user/:id', async (req, res) => {
 
 })
 
-router.delete('/user/:id' , async (req,res) => {
+router.delete('/user/:id' , isloggedIn, async (req,res) => {
     
     try{
         const id = req.params.id

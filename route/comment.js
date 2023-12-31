@@ -7,13 +7,13 @@ import {getComment,
 import { isloggedIn } from '../controllers/auth.js'
 const router = express.Router() 
 
-router.get('/post/comment', function(req, res) {
+router.get('/post/comment', isloggedIn, function(req, res) {
     res.json({
         message: `should be landing page of post with newest comment in the front`
     })
 })
 
-router.get('/user/comment', async (req,res) => {
+router.get('/user/comment', isloggedIn, async (req,res) => {
     try{
         const commentList = await getComment()
         res.status(200).send({commentList})
@@ -26,7 +26,7 @@ router.get('/user/comment', async (req,res) => {
 })
 
 
-router.post('/user/post/comment', async (req, res) => {
+router.post('/user/post/comment', isloggedIn, async (req, res) => {
     try{
 
         const commentInfo = req.body
@@ -48,7 +48,7 @@ router.post('/user/post/comment', async (req, res) => {
 )
 
 
-router.get('/user/post/comment/:id', async (req,res) => {
+router.get('/user/post/comment/:id', isloggedIn, async (req,res) => {
     try{
         const id = req.params.id
         const commentList = await getCommentById(id)
@@ -61,7 +61,7 @@ router.get('/user/post/comment/:id', async (req,res) => {
     }
 })
 
-router.put('/user/post/comment/:id', async (req, res) => {
+router.put('/user/post/comment/:id', isloggedIn, async (req, res) => {
     const id = req.params.id
     const commentToUpdate = req.body
     try{
@@ -76,7 +76,7 @@ router.put('/user/post/comment/:id', async (req, res) => {
 
 })
 
-router.delete('/user/post/comment/:id' , async (req,res) => {
+router.delete('/user/post/comment/:id' , isloggedIn, async (req,res) => {
     
     try{
         const id = req.params.id

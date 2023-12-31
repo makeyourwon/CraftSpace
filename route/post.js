@@ -3,8 +3,8 @@ const router = express.Router()
 import {getPost, getLates5Post, createPost , updatePost, deletePost, getPostById} from '../controllers/post.js'
 import { isloggedIn } from '../controllers/auth.js'
 
-//landing page with only 5 post.
-router.get('/post', isloggedIn, async function(req, res) {
+//landing page with only 5 post without loggin.
+router.get('/post', async function(req, res) {
     try{
         const postList = await getLates5Post()
         res.status(200).send({postList})
@@ -16,8 +16,9 @@ router.get('/post', isloggedIn, async function(req, res) {
     }
 })
 
+//Routes below need login info.
 //get the post of all posts
-router.get('/user/post', async (req,res) => {
+router.get('/user/post', isloggedIn, async (req,res) => {
     try{
         const postList = await getPost()
         res.status(200).send({postList})
@@ -30,7 +31,7 @@ router.get('/user/post', async (req,res) => {
 })
 
 
-router.post('/user/post', async (req, res) => {
+router.post('/user/post', isloggedIn, async (req, res) => {
     try{
 
         const postInfo = req.body
@@ -51,7 +52,7 @@ router.post('/user/post', async (req, res) => {
 
 )
 
-router.get('/user/post/:id', async (req,res) => {
+router.get('/user/post/:id', isloggedIn, async (req,res) => {
     try{
         const id = req.params.id
         const postList = await getPostById(id)
@@ -65,7 +66,7 @@ router.get('/user/post/:id', async (req,res) => {
 })
 
 
-router.put('/user/post/:id', async (req, res) => {
+router.put('/user/post/:id', isloggedIn, async (req, res) => {
     const id = req.params.id
     const postToUpdate = req.body
     try{
@@ -80,7 +81,7 @@ router.put('/user/post/:id', async (req, res) => {
 
 })
 
-router.delete('/user/post/:id' , async (req,res) => {
+router.delete('/user/post/:id' , isloggedIn, async (req,res) => {
     
     try{
         const id = req.params.id
