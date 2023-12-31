@@ -11,11 +11,11 @@ router.get('/', function(req, res) {
     })
 })
 
-router.get('/signin', (req, res) => {
-    res.json({
-        message:"please enter your infor to log in."
-    })
-})
+// router.get('/signin', (req, res) => {
+//     res.json({
+//         message:"please enter your infor to log in."
+//     })
+// })
 
 router.post('/signin', async (req, res) => {
     let isloggedIn = false

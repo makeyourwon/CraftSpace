@@ -16,9 +16,24 @@ async function signUp(req){
     })
 }
 
+async function signIn(req){
+    const inputUser = await User.findOne({username:req.body.username})
+    console.log(inputUser)
+    return inputUser
+    // .then(response => {
+    //     return response
+    // })
+    // .catch(error => {
+    //     throw error
+    // })
+}
 
+
+
+//test with database. won't be used.
 function getUserInfo(req){
     const userInfo = User.findOne({username: req.body.username})
+
     return userInfo
     .then(response => {
         return response
@@ -34,4 +49,6 @@ function getUserInfo(req){
 
 export {
     getUserInfo,
-    signUp}
+    signUp,
+    signIn
+}

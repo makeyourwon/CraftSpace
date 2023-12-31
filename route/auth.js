@@ -3,7 +3,7 @@ import 'dotenv/config'
 import {Router} from 'express'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
-import { signUp } from "../controllers/auth.js";
+import { signUp, signIn } from "../controllers/auth.js";
 
 const {SECRET ='secret'} = process.env
 
@@ -22,8 +22,34 @@ router.post('/signup', async (req, res) => {
             error: `${error}`
         })
     }
-    
-
 })
 
+
+router.post('/login', async (req,res) => {
+    try{
+        console.log(req.body.username)
+        const userInput = await signIn(req)
+        if (userInput){
+            const result = await bcrypt.compare(req.body.pswd, userInput.pswd)
+            if (result){
+                const token = jwt.sign({username: userInput.username},SECRET)
+                res.json({token})
+            }else{
+                res.status(400).json({
+                    error: "error",
+                    message: "Password doesn't match."
+                })
+            }
+        }else{
+            res.status(400).json({
+                error: "error",
+                message: "User doesn't exist."
+            })
+        }
+    }catch(error){
+        res.status(400).json({
+            error: `${error}`
+        })
+    }
+})
 export default router
