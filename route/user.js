@@ -14,26 +14,26 @@ router.get('/', function(req, res) {
 
 
 //rest route
-router.post('/signin', async (req, res) => {
-    let isloggedIn = false
-    const inputInfo = req.body
-    // const userOne = await User.findOne({username: req.body.username})
-    const userGot = await getUserInfo(req)
-    try{
+// router.post('/signin', async (req, res) => {
+//     let isloggedIn = false
+//     const inputInfo = req.body
+//     // const userOne = await User.findOne({username: req.body.username})
+//     const userGot = await getUserInfo(req)
+//     try{
 
-        if (inputInfo.username === userGot.username && inputInfo.pswd === userGot.pswd){
-            res.status(200).send({
-                message:"logged in sucessfully"
-            })
-            isloggedIn = true
-        }
-    }catch(error){
-        res.status(400).send({
-            error: `${error}`
-        })
-    }
+//         if (inputInfo.username === userGot.username && inputInfo.pswd === userGot.pswd){
+//             res.status(200).send({
+//                 message:"logged in sucessfully"
+//             })
+//             isloggedIn = true
+//         }
+//     }catch(error){
+//         res.status(400).send({
+//             error: `${error}`
+//         })
+//     }
 
-})
+// })
 
 
 //Routes below need login info.
@@ -50,25 +50,25 @@ router.get('/user', isloggedIn, async (req,res) => {
 })
 
 
-router.post('/user', isloggedIn, async (req, res) => {
-    try{
-        const userInfo = req.body
-        const newUser = await createUser(userInfo)
+// router.post('/user', async (req, res) => {
+//     try{
+//         const userInfo = req.body
+//         const newUser = await createUser(userInfo)
 
-        res.status(200).json({
-            message:'New user is created.',
-            newUser: newUser
-        })
+//         res.status(200).json({
+//             message:'New user is created.',
+//             newUser: newUser
+//         })
     
-    }
-    catch(error){
-        res.status(400).send({
-            error: `${error}`
-        })
-    }
-    }
+//     }
+//     catch(error){
+//         res.status(400).send({
+//             error: `${error}`
+//         })
+//     }
+//     }
 
-)
+// )
 
 router.put('/user/:id', isloggedIn, async (req, res) => {
     const id = req.params.id

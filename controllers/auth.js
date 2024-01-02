@@ -19,9 +19,14 @@ async function signUp(req){
 
 async function signIn(req){
     const inputUser = await User.findOne({username:req.body.username})
-    console.log(inputUser)
+    // console.log(inputUser)
     return inputUser
+
 }
+
+// async function signOut(){
+//     const 
+// }
 
 
 
@@ -47,6 +52,7 @@ const isloggedIn = async (req, res, next) =>{
 
             if(token){
                 const payload = jwt.verify(token, 'secret')
+
                 if (payload){
                     req.user = payload
                     next()

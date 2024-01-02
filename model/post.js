@@ -8,6 +8,7 @@ const postSchema = mongoose.Schema({
     postTitle: { type: String, required: true },
     postContent: { type: String, required: true } ,
     userId: {type: mongoose.Schema.Types.ObjectId, ref:'User'},
+    likes: [{type:String}],
     commentId:[ {type: mongoose.Schema.Types.ObjectId, ref:'Comment'}], //multiple comments
     todoId: {type: mongoose.Schema.Types.ObjectId, ref:'Todos'} //unique todo list
 

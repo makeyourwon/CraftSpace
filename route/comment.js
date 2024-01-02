@@ -32,6 +32,10 @@ router.post('/user/post/comment', isloggedIn, async (req, res) => {
         const commentInfo = req.body
         const newComment = await createComment(commentInfo)
 
+        //consolelog req first to retrieve the req.user.id
+        console.log('req', req)
+
+
         res.status(200).json({
             message:'New comment is created.',
             newComment: newComment

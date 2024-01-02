@@ -2,16 +2,19 @@ import express from 'express'
 const router = express.Router() 
 import {getPost, getLates5Post, createPost , updatePost, deletePost, getPostById} from '../controllers/post.js'
 import { isloggedIn } from '../controllers/auth.js'
+import User from '../model/user.js'
+import { updateUser } from '../controllers/user.js'
 
 //landing page with only 5 post without loggin.
 router.get('/post', async function(req, res) {
     try{
         const postList = await getLates5Post()
         res.status(200).send({postList})
+        
     }
     catch(error){
         res.status(400).send({
-            error: `${error}`
+            posterror: `${error}`
         })
     }
 })
@@ -25,7 +28,7 @@ router.get('/user/post', isloggedIn, async (req,res) => {
     }
     catch(error){
         res.status(400).send({
-            error: `${error}`
+            geterror: `${error}`
         })
     }
 })
@@ -33,9 +36,21 @@ router.get('/user/post', isloggedIn, async (req,res) => {
 
 router.post('/user/post', isloggedIn, async (req, res) => {
     try{
-
+        //get the new post
         const postInfo = req.body
+        //get the userId
+        postInfo.userId = req.user.id
+        const thisUser = await User.findOne({_id:req.user.id})
+
+        //store the post to server
         const newPost = await createPost(postInfo)
+        const id = thisUser._id
+
+        //update the postId to user schema
+        const update = await User.findByIdAndUpdate(id, 
+            { $push: { postId: newPost[0]._id } }
+        , {new:true})
+
 
         res.status(200).json({
             message:'New post is created.',
@@ -45,7 +60,7 @@ router.post('/user/post', isloggedIn, async (req, res) => {
     }
     catch(error){
         res.status(400).send({
-            error: `${error}`
+            posterror: `user/post error: ${error}`
         })
     }
     }
@@ -86,6 +101,28 @@ router.delete('/user/post/:id' , isloggedIn, async (req,res) => {
     try{
         const id = req.params.id
         const postDeleted = await deletePost(id)
+
+        //get the userId and postId
+        //Need to console log (req) before retrieve req.user.id. Otherwise the userId result will null
+        // console.log(req)
+        const userId = req.user.id
+        const postIdToRemove = id
+
+
+        User.findByIdAndUpdate(
+            userId,
+            { $pull: { postId: postIdToRemove } },
+            {new:true}
+            )
+
+            //user try/catch
+        .then(updatedUser => {
+            console.log("Updated user:", updatedUser);
+        })
+        .catch(error => {
+            console.error("Error updating user:", error);
+        })
+
         res.status(200).json({postDeleted})
     }
     catch(error){
