@@ -3,6 +3,7 @@ import Post from './post.js'
 
 const commentSchema = mongoose.Schema({
     comment: {type: String, required: true},
+    username:{type: String}
     // postId: {type: mongoose.Schema.Types.ObjectId, ref:'Post'},
 
 

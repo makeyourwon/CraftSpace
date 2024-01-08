@@ -38,6 +38,7 @@ router.post('/user/post', isloggedIn, async (req, res) => {
     try{
         //get the new post
         const postInfo = req.body
+        
         //get the userId
         postInfo.userId = req.user.id
         const thisUser = await User.findOne({_id:req.user.id})

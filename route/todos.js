@@ -11,7 +11,7 @@ import { isloggedIn } from '../controllers/auth.js'
 
 
 
-router.get('/user/todo', isloggedIn, async (req,res) => {
+router.get('/post/todo', isloggedIn, async (req,res) => {
     try{
         const todoList = await getTodo()
         res.status(200).send({todoList})
@@ -24,7 +24,7 @@ router.get('/user/todo', isloggedIn, async (req,res) => {
 })
 
 
-router.post('/user/post/todo', isloggedIn, async (req, res) => {
+router.post('/post/todo', isloggedIn, async (req, res) => {
     try{
 
         const todoInfo = req.body
@@ -45,7 +45,7 @@ router.post('/user/post/todo', isloggedIn, async (req, res) => {
 
 )
 
-router.get('/user/post/todo/:id', isloggedIn, async (req,res) => {
+router.get('/post/:id/todo/:id', isloggedIn, async (req,res) => {
     try{
         const id = req.params.id
         const todoList = await getTodoById(id)
@@ -58,7 +58,7 @@ router.get('/user/post/todo/:id', isloggedIn, async (req,res) => {
     }
 })
 
-router.put('/user/post/todo/:id', isloggedIn, async (req, res) => {
+router.put('/post/:id/todo/:id', isloggedIn, async (req, res) => {
     const id = req.params.id
     const todoToUpdate = req.body
     try{
@@ -73,7 +73,7 @@ router.put('/user/post/todo/:id', isloggedIn, async (req, res) => {
 
 })
 
-router.delete('/user/post/todo/:id' , isloggedIn, async (req,res) => {
+router.delete('/post/:id/todo/:id' , isloggedIn, async (req,res) => {
     
     try{
         const id = req.params.id
