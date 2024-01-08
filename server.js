@@ -27,6 +27,10 @@ app.use('/', commentRouter)
 app.use('/', todoRouter)
 app.use('/', authRouter)
 
+app.use(cors({
+    origin: 'https://craft-space-front-end.vercel.app' // Allow only your frontend to access
+  }));
+
 
 
 app.listen(PORT, function(){
