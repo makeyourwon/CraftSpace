@@ -12,7 +12,7 @@ Result:
 
 # My App: Craft Space 
 Front end link:
-https://vercel.com/shans-projects-620d094c/craft-space-front-end
+https://craft-space-front-end.vercel.app/
 
 # Techniques
 Node.js, Express, html, css, JWT authentication
